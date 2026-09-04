@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CURATED_PALETTES } from '../data/palettes';
+
+const featured = CURATED_PALETTES.slice(0, 3);
+---
+
+<BaseLayout
+  title="Vitteey Sarthi Color Studio — Free Color Palette Generator"
+  description="Generate, preview, and export beautiful color palettes for free. Explore curated palettes, check color contrast, and build harmonies from any base color."
+>
+  <section class="flex flex-col items-start gap-4 py-8">
+    <h1 class="text-4xl font-bold tracking-tight text-text sm:text-5xl">
+      Color palettes, done right.
+    </h1>
+    <p class="max-w-2xl text-lg text-text-muted">
+      Vitteey Sarthi Color Studio is a fast, free color palette generator. Pick a base color,
+      choose a harmony rule, lock the shades you love, and export straight to CSS, Tailwind,
+      JSON, or a PNG image — all in your browser, nothing saved to a server.
+    </p>
+    <a
+      href="/generator"
+      class="rounded-md bg-brand-navy px-6 py-3 text-base font-semibold text-brand-white hover:opacity-90"
+    >
+      Open the generator
+    </a>
+  </section>
+
+  <section class="py-8">
+    <div class="mb-4 flex items-center justify-between">
+      <h2 class="text-2xl font-semibold text-text">Featured palettes</h2>
+      <a href="/palettes" class="text-sm font-medium text-text-muted hover:text-text">
+        View all &rarr;
+      </a>
+    </div>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      {
+        featured.map((palette) => (
+          <a
+            href={`/palette/${palette.slug}`}
+            class="block overflow-hidden rounded-lg border border-border bg-surface transition-shadow hover:shadow-md"
+          >
+            <div class="flex h-24">
+              {palette.colors.map((c) => (
+                <span class="flex-1" style={`background-color: ${c}`} />
+              ))}
+            </div>
+            <div class="p-3">
+              <p class="font-semibold text-text">{palette.name}</p>
+              <p class="text-sm text-text-muted">{palette.description}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

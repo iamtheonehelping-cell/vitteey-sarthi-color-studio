@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PaletteGenerator from '../components/react/PaletteGenerator';
+---
+
+<BaseLayout
+  title="Color Palette Generator"
+  description="Generate color palettes from any base color using complementary, analogous, triadic, and other harmony rules. Lock colors, export to CSS or Tailwind, and save palettes locally."
+>
+  <h1 class="mb-6 text-3xl font-bold text-text">Palette Generator</h1>
+  <PaletteGenerator client:load />
+</BaseLayout>

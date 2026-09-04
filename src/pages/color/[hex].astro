@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { NAMED_COLORS, hexToSlug } from '../../data/colors';
+import { hexToHsl, hexToRgb, generateHarmony, readableTextColor } from '../../lib/color';
+import ContrastChecker from '../../components/react/ContrastChecker';
+import CopyButton from '../../components/react/CopyButton';
+
+export function getStaticPaths() {
+  return NAMED_COLORS.map((color) => ({
+    params: { hex: hexToSlug(color.hex) },
+    props: { color },
+  }));
+}
+
+const { color } = Astro.props;
+const rgb = hexToRgb(color.hex);
+const hsl = hexToHsl(color.hex);
+const rgbString = `rgb(${Math.round(rgb.r)}, ${Math.round(rgb.g)}, ${Math.round(rgb.b)})`;
+const hslString = `hsl(${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%)`;
+const shades = generateHarmony(color.hex, 'monochromatic', 6);
+const textColor = readableTextColor(color.hex);
+---
+
+<BaseLayout
+  title={`${color.name} (${color.hex}) — Color Details`}
+  description={`${color.name} is ${color.hex}, ${rgbString}, ${hslString}. View shades, tints, and contrast information for this color.`}
+>
+  <nav class="mb-4 text-sm text-text-muted">
+    <a href="/palettes" class="hover:text-text">Colors</a>
+    <span class="mx-1">/</span>
+    <span class="text-text">{color.name}</span>
+  </nav>
+
+  <div
+    class="mb-6 flex h-40 flex-col justify-end rounded-lg p-4"
+    style={`background-color: ${color.hex}; color: ${textColor}`}
+  >
+    <h1 class="text-3xl font-bold">{color.name}</h1>
+    <p class="font-mono text-lg uppercase">{color.hex}</p>
+  </div>
+
+  <div class="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+    <div class="flex items-center justify-between rounded-md border border-border bg-surface p-3">
+      <span class="font-mono text-sm text-text">{color.hex}</span>
+      <CopyButton client:visible value={color.hex} label="Copy" className="bg-surface-subtle text-text hover:opacity-80" />
+    </div>
+    <div class="flex items-center justify-between rounded-md border border-border bg-surface p-3">
+      <span class="font-mono text-sm text-text">{rgbString}</span>
+      <CopyButton client:visible value={rgbString} label="Copy" className="bg-surface-subtle text-text hover:opacity-80" />
+    </div>
+    <div class="flex items-center justify-between rounded-md border border-border bg-surface p-3">
+      <span class="font-mono text-sm text-text">{hslString}</span>
+      <CopyButton client:visible value={hslString} label="Copy" className="bg-surface-subtle text-text hover:opacity-80" />
+    </div>
+  </div>
+
+  <h2 class="mb-3 text-xl font-semibold text-text">Shades &amp; tints</h2>
+  <div class="mb-8 flex overflow-hidden rounded-lg">
+    {shades.map((shade) => <span class="h-16 flex-1" style={`background-color: ${shade}`} />)}
+  </div>
+
+  <h2 class="mb-3 text-xl font-semibold text-text">Contrast checker</h2>
+  <ContrastChecker client:visible initialForeground={color.hex} initialBackground="#fefefe" />
+
+  <p class="mt-8 text-sm text-text-muted">
+    Want to build a full palette from {color.name}? <a href="/generator" class="font-medium text-text underline">Open it in the generator</a>.
+  </p>
+</BaseLayout>

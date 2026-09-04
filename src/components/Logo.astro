@@ -1,0 +1,33 @@
+---
+interface Props {
+  /** Rendered height in pixels; width follows automatically via aspect-ratio. */
+  height?: number;
+  class?: string;
+  showWordmark?: boolean;
+}
+
+const { height = 32, class: className = '', showWordmark = true } = Astro.props;
+---
+
+<span class={`inline-flex items-center gap-2 ${className}`}>
+  {/*
+    The real logo's wordmark is navy, so on the dark-mode navy header/footer
+    it would be invisible without a light backing plate. `bg-logo-plate` is
+    transparent in light mode (no visible change) and white in dark mode —
+    the logo image itself is never recolored, cropped, or resized apart from
+    height (width follows automatically to preserve its exact proportions).
+  */}
+  <span class="inline-flex items-center rounded-md bg-logo-plate p-1">
+    <img
+      src="/images/vitteey-sarthi-logo.png"
+      alt="Vitteey Sarthi"
+      height={height}
+      style={`height: ${height}px; width: auto;`}
+      class="max-w-none object-contain"
+      onerror="this.style.display='none'; this.parentElement.nextElementSibling.removeAttribute('hidden');"
+    />
+  </span>
+  <span hidden class="font-bold tracking-tight text-text">
+    Vitteey Sarthi{showWordmark ? ' Color Studio' : ''}
+  </span>
+</span>

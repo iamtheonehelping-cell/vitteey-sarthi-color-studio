@@ -1,0 +1,36 @@
+{
+  "name": "vitteey-sarthi-color-studio",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "astro check",
+    "og:generate": "node scripts/generate-og-image.mjs",
+    "validate": "npm run typecheck && npm run test && npm run build"
+  },
+  "dependencies": {
+    "@astrojs/react": "^6.0.5",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.2.10",
+    "colord": "^2.10.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@resvg/resvg-js": "^2.6.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "tailwindcss": "^4.3.3",
+    "typescript": "5.9.3",
+    "vitest": "^4.1.11"
+  }
+}

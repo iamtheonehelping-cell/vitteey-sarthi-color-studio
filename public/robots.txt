@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.vitteeysarthi.com/sitemap-index.xml

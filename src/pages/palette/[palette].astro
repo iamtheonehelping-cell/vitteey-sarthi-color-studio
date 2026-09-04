@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CURATED_PALETTES } from '../../data/palettes';
+import PaletteGenerator from '../../components/react/PaletteGenerator';
+
+export function getStaticPaths() {
+  return CURATED_PALETTES.map((palette) => ({
+    params: { palette: palette.slug },
+    props: { palette },
+  }));
+}
+
+const { palette } = Astro.props;
+---
+
+<BaseLayout
+  title={`${palette.name} Palette`}
+  description={`${palette.description} Preview, lock, and export the ${palette.name} color palette (${palette.colors.join(', ')}).`}
+>
+  <nav class="mb-4 text-sm text-text-muted">
+    <a href="/palettes" class="hover:text-text">Palettes</a>
+    <span class="mx-1">/</span>
+    <span class="text-text">{palette.name}</span>
+  </nav>
+  <h1 class="mb-2 text-3xl font-bold text-text">{palette.name}</h1>
+  <p class="mb-6 max-w-2xl text-text-muted">{palette.description}</p>
+
+  <PaletteGenerator client:load initialColors={palette.colors} />
+</BaseLayout>

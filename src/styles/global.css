@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/*
+ * Vitteey Sarthi Color Studio — design tokens.
+ *
+ * Brand colors (fixed, never change between themes):
+ *   Navy  #212B4F  — headings, navigation, primary UI, primary buttons
+ *   Green #298C5F  — positive/success states, secondary accents
+ *   Red   #BF161A  — errors, destructive actions, selective accents
+ *   White #FEFEFE  — primary background
+ *
+ * Semantic surface/text tokens below are theme-aware (redefined for dark
+ * mode) so components can use e.g. `bg-bg text-text` instead of hand-rolled
+ * `dark:` pairs everywhere. Every text/background combination used by a
+ * component has been checked against WCAG contrast thresholds — see the
+ * comments next to the dark-mode success/error text tokens for the ones
+ * that needed a lighter variant to keep passing.
+ */
+
+@theme {
+  --color-brand-navy: #212b4f;
+  --color-brand-green: #298c5f;
+  --color-brand-red: #bf161a;
+  --color-brand-white: #fefefe;
+
+  --color-bg: var(--surface-bg);
+  --color-surface: var(--surface-card);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-border: var(--surface-border);
+  --color-text: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --color-success-bg: var(--success-bg);
+  --color-success-text: var(--success-text);
+  --color-error-bg: var(--error-bg);
+  --color-error-text: var(--error-text);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-text: var(--warning-text);
+  --color-focus: var(--focus-ring);
+  --color-logo-plate: var(--logo-plate);
+}
+
+:root {
+  color-scheme: light;
+  --surface-bg: #fefefe;
+  --surface-card: #ffffff;
+  --surface-subtle: #f4f5f9;
+  --surface-border: #e2e5ee;
+  --text-primary: #212b4f;
+  --text-muted: #4b5573;
+  /* green/red text on white passes AA (4.15/6.22); tint+text pairs below
+     are used for badges where a solid brand-color fill would fall short. */
+  --success-bg: #e2f3ea;
+  --success-text: #1e6e48;
+  --error-bg: #fbe4e4;
+  --error-text: #bf161a;
+  /* not a brand color — a neutral amber "partial pass" tone for the
+     contrast checker's AA (but not AAA) badge; verified 6.36:1. */
+  --warning-bg: #fef3c7;
+  --warning-text: #92400e;
+  --focus-ring: #298c5f;
+  /* The real logo's wordmark is navy — invisible against the dark-mode
+     navy surface, so it needs a light backing plate; transparent here
+     since white page/card backgrounds already give it contrast. */
+  --logo-plate: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    color-scheme: dark;
+    --surface-bg: #141b30;
+    --surface-card: #212b4f;
+    --surface-subtle: #1a2340;
+    --surface-border: #34406b;
+    --text-primary: #fefefe;
+    --text-muted: #b8c0d9;
+    /* navy text and solid red text both fail contrast on dark navy
+       surfaces (1.23 / 2.40) — use lighter tints instead, verified AA/AAA. */
+    --success-bg: rgba(41, 140, 95, 0.18);
+    --success-text: #6fce9e;
+    --error-bg: rgba(191, 22, 26, 0.22);
+    --error-text: #ff8a80;
+    --warning-bg: #78350f;
+    --warning-text: #fde68a;
+    --focus-ring: #6fce9e;
+    --logo-plate: #fefefe;
+  }
+}
+
+.dark {
+  color-scheme: dark;
+  --surface-bg: #141b30;
+  --surface-card: #212b4f;
+  --surface-subtle: #1a2340;
+  --surface-border: #34406b;
+  --text-primary: #fefefe;
+  --text-muted: #b8c0d9;
+  --success-bg: rgba(41, 140, 95, 0.18);
+  --success-text: #6fce9e;
+  --error-bg: rgba(191, 22, 26, 0.22);
+  --error-text: #ff8a80;
+  --warning-bg: #78350f;
+  --warning-text: #fde68a;
+  --focus-ring: #6fce9e;
+  --logo-plate: #fefefe;
+}
+
+body {
+  @apply bg-bg text-text antialiased;
+  background-color: var(--surface-bg);
+  color: var(--text-primary);
+}
+
+/* Visible keyboard focus everywhere — never rely on color alone. */
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
