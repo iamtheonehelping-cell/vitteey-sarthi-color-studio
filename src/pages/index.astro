@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { CURATED_PALETTES } from '../data/palettes';
+import { withBase } from '../lib/base';
 
 const featured = CURATED_PALETTES.slice(0, 3);
 ---
@@ -19,7 +20,7 @@ const featured = CURATED_PALETTES.slice(0, 3);
       JSON, or a PNG image — all in your browser, nothing saved to a server.
     </p>
     <a
-      href="/generator"
+      href={withBase('/generator')}
       class="rounded-md bg-brand-navy px-6 py-3 text-base font-semibold text-brand-white hover:opacity-90"
     >
       Open the generator
@@ -29,7 +30,7 @@ const featured = CURATED_PALETTES.slice(0, 3);
   <section class="py-8">
     <div class="mb-4 flex items-center justify-between">
       <h2 class="text-2xl font-semibold text-text">Featured palettes</h2>
-      <a href="/palettes" class="text-sm font-medium text-text-muted hover:text-text">
+      <a href={withBase('/palettes')} class="text-sm font-medium text-text-muted hover:text-text">
         View all &rarr;
       </a>
     </div>
@@ -37,7 +38,7 @@ const featured = CURATED_PALETTES.slice(0, 3);
       {
         featured.map((palette) => (
           <a
-            href={`/palette/${palette.slug}`}
+            href={withBase(`/palette/${palette.slug}`)}
             class="block overflow-hidden rounded-lg border border-border bg-surface transition-shadow hover:shadow-md"
           >
             <div class="flex h-24">

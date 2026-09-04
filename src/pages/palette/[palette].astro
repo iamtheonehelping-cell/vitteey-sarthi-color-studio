@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { CURATED_PALETTES } from '../../data/palettes';
 import PaletteGenerator from '../../components/react/PaletteGenerator';
+import { withBase } from '../../lib/base';
 
 export function getStaticPaths() {
   return CURATED_PALETTES.map((palette) => ({
@@ -18,7 +19,7 @@ const { palette } = Astro.props;
   description={`${palette.description} Preview, lock, and export the ${palette.name} color palette (${palette.colors.join(', ')}).`}
 >
   <nav class="mb-4 text-sm text-text-muted">
-    <a href="/palettes" class="hover:text-text">Palettes</a>
+    <a href={withBase('/palettes')} class="hover:text-text">Palettes</a>
     <span class="mx-1">/</span>
     <span class="text-text">{palette.name}</span>
   </nav>

@@ -4,6 +4,7 @@ import { NAMED_COLORS, hexToSlug } from '../../data/colors';
 import { hexToHsl, hexToRgb, generateHarmony, readableTextColor } from '../../lib/color';
 import ContrastChecker from '../../components/react/ContrastChecker';
 import CopyButton from '../../components/react/CopyButton';
+import { withBase } from '../../lib/base';
 
 export function getStaticPaths() {
   return NAMED_COLORS.map((color) => ({
@@ -26,7 +27,7 @@ const textColor = readableTextColor(color.hex);
   description={`${color.name} is ${color.hex}, ${rgbString}, ${hslString}. View shades, tints, and contrast information for this color.`}
 >
   <nav class="mb-4 text-sm text-text-muted">
-    <a href="/palettes" class="hover:text-text">Colors</a>
+    <a href={withBase('/palettes')} class="hover:text-text">Colors</a>
     <span class="mx-1">/</span>
     <span class="text-text">{color.name}</span>
   </nav>
@@ -63,6 +64,6 @@ const textColor = readableTextColor(color.hex);
   <ContrastChecker client:visible initialForeground={color.hex} initialBackground="#fefefe" />
 
   <p class="mt-8 text-sm text-text-muted">
-    Want to build a full palette from {color.name}? <a href="/generator" class="font-medium text-text underline">Open it in the generator</a>.
+    Want to build a full palette from {color.name}? <a href={withBase('/generator')} class="font-medium text-text underline">Open it in the generator</a>.
   </p>
 </BaseLayout>

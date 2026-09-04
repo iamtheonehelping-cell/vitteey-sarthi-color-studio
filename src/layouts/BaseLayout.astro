@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
+import { withBase } from '../lib/base';
 
 interface Props {
   title: string;
@@ -12,10 +13,12 @@ interface Props {
 
 const { title, description, path = Astro.url.pathname, ogImage } = Astro.props;
 
-const siteUrl = Astro.site ?? new URL('https://www.vitteeysarthi.com');
+const siteUrl = Astro.site ?? new URL('https://iamtheonehelping-cell.github.io/vitteey-sarthi-color-studio/');
 const canonicalUrl = new URL(path, siteUrl).toString();
 const fullTitle = title.includes('Vitteey Sarthi') ? title : `${title} | Vitteey Sarthi Color Studio`;
-const image = ogImage ? new URL(ogImage, siteUrl).toString() : new URL('/og-image.png', siteUrl).toString();
+const image = ogImage
+  ? new URL(ogImage, siteUrl).toString()
+  : new URL(withBase('/og-image.png'), siteUrl).toString();
 ---
 
 <!doctype html>
@@ -23,7 +26,7 @@ const image = ogImage ? new URL(ogImage, siteUrl).toString() : new URL('/og-imag
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <link rel="canonical" href={canonicalUrl} />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -70,13 +73,13 @@ const image = ogImage ? new URL(ogImage, siteUrl).toString() : new URL('/og-imag
     </a>
     <header class="border-b border-border bg-surface">
       <nav class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3">
-        <a href="/" class="shrink-0">
+        <a href={withBase('/')} class="shrink-0">
           <Logo height={32} />
         </a>
         <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium text-text-muted">
-          <a href="/generator" class="hover:text-text">Generator</a>
-          <a href="/palettes" class="hover:text-text">Palettes</a>
-          <a href="/about" class="hover:text-text">About</a>
+          <a href={withBase('/generator')} class="hover:text-text">Generator</a>
+          <a href={withBase('/palettes')} class="hover:text-text">Palettes</a>
+          <a href={withBase('/about')} class="hover:text-text">About</a>
           <ThemeToggle />
         </div>
       </nav>
@@ -91,8 +94,8 @@ const image = ogImage ? new URL(ogImage, siteUrl).toString() : new URL('/og-imag
           <p>&copy; {new Date().getFullYear()} Vitteey Sarthi LLP</p>
         </div>
         <div class="flex gap-4">
-          <a href="/privacy" class="hover:text-text">Privacy</a>
-          <a href="/terms" class="hover:text-text">Terms</a>
+          <a href={withBase('/privacy')} class="hover:text-text">Privacy</a>
+          <a href={withBase('/terms')} class="hover:text-text">Terms</a>
         </div>
       </div>
     </footer>

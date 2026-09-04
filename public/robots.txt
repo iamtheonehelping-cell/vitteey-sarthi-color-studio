@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.vitteeysarthi.com/sitemap-index.xml
+Sitemap: https://iamtheonehelping-cell.github.io/vitteey-sarthi-color-studio/sitemap-index.xml

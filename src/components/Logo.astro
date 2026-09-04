@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/base';
+
 interface Props {
   /** Rendered height in pixels; width follows automatically via aspect-ratio. */
   height?: number;
@@ -19,7 +21,7 @@ const { height = 32, class: className = '', showWordmark = true } = Astro.props;
   */}
   <span class="inline-flex items-center rounded-md bg-logo-plate p-1">
     <img
-      src="/images/vitteey-sarthi-logo.png"
+      src={withBase('/images/vitteey-sarthi-logo.png')}
       alt="Vitteey Sarthi"
       height={height}
       style={`height: ${height}px; width: auto;`}

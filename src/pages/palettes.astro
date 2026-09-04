@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { CURATED_PALETTES } from '../data/palettes';
+import { withBase } from '../lib/base';
 ---
 
 <BaseLayout
@@ -12,7 +13,7 @@ import { CURATED_PALETTES } from '../data/palettes';
     {
       CURATED_PALETTES.map((palette) => (
         <a
-          href={`/palette/${palette.slug}`}
+          href={withBase(`/palette/${palette.slug}`)}
           class="block overflow-hidden rounded-lg border border-border bg-surface transition-shadow hover:shadow-md"
         >
           <div class="flex h-28">
