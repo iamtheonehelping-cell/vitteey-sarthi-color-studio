@@ -13,7 +13,7 @@ interface Props {
 
 const { title, description, path = Astro.url.pathname, ogImage } = Astro.props;
 
-const siteUrl = Astro.site ?? new URL('https://iamtheonehelping-cell.github.io/vitteey-sarthi-color-studio/');
+const siteUrl = Astro.site ?? new URL('https://www.vitteeysarthi.com');
 const canonicalUrl = new URL(path, siteUrl).toString();
 const fullTitle = title.includes('Vitteey Sarthi') ? title : `${title} | Vitteey Sarthi Color Studio`;
 const image = ogImage
